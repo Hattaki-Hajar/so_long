@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 21:40:03 by hhattaki          #+#    #+#             */
-/*   Updated: 2022/12/22 23:28:25 by hhattaki         ###   ########.fr       */
+/*   Updated: 2022/12/24 16:23:03 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,6 @@ int		gnl(int fd);
 void	open_pics(t_var	*d);
 void	rendring(int fd, t_var d);
 char	**get_map(int fd, int y, int x);
-void	map_check(char	**map, int x, int y)
+void	map_check(int x, int y, t_var	*d);
 
 #endif

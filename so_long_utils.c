@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 21:41:30 by hhattaki          #+#    #+#             */
-/*   Updated: 2022/12/22 23:33:20 by hhattaki         ###   ########.fr       */
+/*   Updated: 2022/12/24 16:37:14 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	**get_map(int fd, int y, int x)
 	int		j;
 	char	*line;
 
-	map = malloc(y * sizeof(char **));
+	map = malloc(y * sizeof(char *));
 	j = 0;
 	line = get_next_line(fd);
 	while (line)
@@ -49,7 +49,7 @@ char	**get_map(int fd, int y, int x)
 	return (map);
 }
 
-void	map_check(char	**map, int x, int y, t_var	*d)
+void	map_check(int x, int y, t_var	*d)
 {
 	int	i;
 	int	j;
@@ -66,13 +66,13 @@ void	map_check(char	**map, int x, int y, t_var	*d)
 		i = 0;
 		while (i < x)
 		{
-			if (map[i][j] == 'p')
+			if (d->map[i][j] == 'P')
 				p++;
-			else if (map[i][j] == 'e')
+			else if (d->map[i][j] == 'E')
 				e++;
-			else if (map[i][j] == 'c')
+			else if (d->map[i][j] == 'C')
 				d->c++;
-			else if (map[i][j] != '1' || map[i][j] != '0')
+			else if (d->map[i][j] != '1' || d->map[i][j] != '0')
 				exit(5);
 			i++;
 		}
@@ -81,8 +81,6 @@ void	map_check(char	**map, int x, int y, t_var	*d)
 	if (d->c == 0 || p != 1 || e != 1)
 		exit(6);
 }
-
-
 
 void	open_pics(t_var *d)
 {

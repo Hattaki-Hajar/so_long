@@ -6,14 +6,14 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 22:18:04 by hhattaki          #+#    #+#             */
-/*   Updated: 2022/12/22 22:51:53 by hhattaki         ###   ########.fr       */
+/*   Updated: 2022/12/24 15:57:07 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"so_long.h"
 #include<stdio.h>
 
-int main(int ac, char	**av)
+int	main(int ac, char	**av)
 {
 	t_var	d;
 	// int		h[2];
