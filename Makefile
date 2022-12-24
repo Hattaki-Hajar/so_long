@@ -2,7 +2,7 @@ SOURCES = $(wildcard *.c)
 		
 CC	=	cc
 
-CFLAGS	=	-Wall -Wextra 
+CFLAGS	=	-Wall -Wextra -Werror
 
 NAME	=	so_long
 

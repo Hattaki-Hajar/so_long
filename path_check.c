@@ -6,13 +6,13 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 15:38:57 by hhattaki          #+#    #+#             */
-/*   Updated: 2022/12/24 19:50:34 by hhattaki         ###   ########.fr       */
+/*   Updated: 2022/12/24 20:44:24 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"so_long.h"
 
-int	check_path(t_var	d)
+void	check_path(t_var	d)
 {
 	int		pos[2];
 	char	**temp;
@@ -73,43 +73,43 @@ int	checker(int	p[2], char	**map, t_var	d)
 	int	j;
 	int	c;
 
-	i = p[0];
-	j = p[1];
+	j = p[0];
+	i = p[1];
 	c = 0;
-	if (map[p[0]][p[1]] != 'E' && (map[i + 1][j] == '0' || map[i + 1][j] == 'C'))
+	if (map[p[0]][p[1]] != 'E' && (map[i + 1][j] == '0' || map[j + 1][i] == 'C'))
 	{
-		if (map[i + 1][j] == 'C')
+		if (map[j + 1][i] == 'C')
 			c++;
-		p[0] = i + 1;
-		p[1] = j;
-		map[i][j] = '1';
+		p[0] = j + 1;
+		p[1] = i;
+		map[j][i] = '1';
 		checker(p, map, d);
 	}
-	if (map[p[0]][p[1]] != 'E' && (map[i - 1][j] == '0' || map[i - 1][j] == 'C'))
+	if (map[p[0]][p[1]] != 'E' && (map[j - 1][i] == '0' || map[j - 1][i] == 'C'))
 	{
-		if (map[i - 1][j] == 'C')
+		if (map[j - 1][i] == 'C')
 			c++;
-		p[0] = i - 1;
-		p[1] = j;
-		map[i][j] = '1';
+		p[0] = j - 1;
+		p[1] = i;
+		map[j][i] = '1';
 		checker(p, map, d);
 	}
-	if (map[p[0]][p[1]] != 'E' && (map[i][j + 1] == '0' || map[i][j + 1] == 'C'))
+	if (map[p[0]][p[1]] != 'E' && (map[j][i + 1] == '0' || map[j][i + 1] == 'C'))
 	{
-		if (map[i][j + 1] == 'C')
+		if (map[j][i + 1] == 'C')
 			c++;
-		p[0] = i;
-		p[1] = j + 1;
-		map[i][j] = '1';
+		p[0] = j;
+		p[1] = i + 1;
+		map[j][i] = '1';
 		checker(p, map, d);
 	}
-	if (map[p[0]][p[1]] != 'E' && (map[i][j - 1] == '0' || map[i][j - 1] == 'C'))
+	if (map[p[0]][p[1]] != 'E' && (map[j][i - 1] == '0' || map[j][i - 1] == 'C'))
 	{
-		if (map[i][j - 1] == 'C')
+		if (map[j][i - 1] == 'C')
 			c++;
-		p[0] = i;
-		p[1] = j - 1;
-		map[i][j] = '1';
+		p[0] = j;
+		p[1] = i - 1;
+		map[j][i] = '1';
 		checker(p, map, d);
 	}
 	if (c == d.c && map[p[0]][p[1]] == 'E')

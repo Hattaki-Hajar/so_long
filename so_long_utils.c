@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 21:41:30 by hhattaki          #+#    #+#             */
-/*   Updated: 2022/12/24 16:37:14 by hhattaki         ###   ########.fr       */
+/*   Updated: 2022/12/24 21:15:17 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	gnl(int fd)
 {
 	char	*line;
 	int		i;
-	int		len;
+	size_t		len;
 
 	line = get_next_line(fd);
 	len = ft_strlen(line);
@@ -24,15 +24,18 @@ int	gnl(int fd)
 	while (line[i])
 	{
 		if (ft_strlen(line) != len)
+		{
+			ft_putendl_fd("Invalid map", 2);
 			exit(1);
+		}
+			
 		i++;
 	}
 	return (i);
 }
 
-char	**get_map(int fd, int y, int x)
+char	**get_map(int fd, int	y, int	x)
 {
-	int		fd;
 	char	**map;
 	int		j;
 	char	*line;
@@ -49,7 +52,7 @@ char	**get_map(int fd, int y, int x)
 	return (map);
 }
 
-void	map_check(int x, int y, t_var	*d)
+void	map_check(t_var	*d)
 {
 	int	i;
 	int	j;
@@ -61,62 +64,62 @@ void	map_check(int x, int y, t_var	*d)
 	p = 0;
 	e = 0;
 	j = 0;
-	while (j < y)
+	
+	dprintf(2,"%s\n",d->map[0]);
+	while (j < d->y)
 	{
 		i = 0;
-		while (i < x)
+		while (i < d->x)
 		{
+			dprintf(2, ":%c:\n",d->map[i][j]);
 			if (d->map[i][j] == 'P')
 				p++;
 			else if (d->map[i][j] == 'E')
 				e++;
 			else if (d->map[i][j] == 'C')
 				d->c++;
-			else if (d->map[i][j] != '1' || d->map[i][j] != '0')
+			else if (d->map[i][j] != '1' && d->map[i][j] != '0')
 				exit(5);
 			i++;
 		}
 		j++;
 	}
 	if (d->c == 0 || p != 1 || e != 1)
-		exit(6);
+	{
+		dprintf(2, "C= %d P= %d E= %d\n", d->c,p,e);	
+		exit(23);
+	}
 }
 
-void	open_pics(t_var *d)
+void	check_borders(t_var	d)
 {
-	int		h[2];
-
-	d->w = mlx_xpm_file_to_image(d->mlxp, "./utils/wall.xpm", &h[0], &h[1]);
-	d->e = mlx_xpm_file_to_image(d->mlxp, "./utils/exit.xpm", &h[0], &h[1]);
-	d->p = mlx_xpm_file_to_image(d->mlxp, "./utils/player.xpm", &h[0], &h[1]);
-	d->c = mlx_xpm_file_to_image(d->mlxp, "./utils/coll.xpm", &h[0], &h[1]);
-}
-
-void	rendering(int fd, t_var	d)
-{
-	int		i;
-	char	*line;
-	int		h[2];
+	int	i;
 
 	i = 0;
-	line = get_next_line(fd);
-	while (line)
+	while (d.map[1])
 	{
-		h[0] = 0;
-		while (line[i])
-		{
-			if (line[i] == '1')
-				mlx_put_image_to_window(d.mlxp, d.window, d.w, h[0], h[1]);
-			if (line[i] == 'C')
-				mlx_put_image_to_window(d.mlxp, d.window, d.c, h[0], h[1]);
-			if (line[i] == 'E')
-				mlx_put_image_to_window(d.mlxp, d.window, d.e, h[0], h[1]);
-			if (line[i] == 'P')
-				mlx_put_image_to_window(d.mlxp, d.window, d.p, h[0], h[1]);
-			i++;
-			h[1] += 30;
-		}
-		line = get_next_line(fd);
-		h[1] += 30;
+		if (d.map[1][i] != '1')
+			exit(3);
+		i++;
 	}
+	i = 0;
+	while (d.map[d.y - 1])
+	{
+		if (d.map[d.y - 1][i] != '1')
+			exit(3);
+		i++;
+	}
+	i = 0;
+	while (i < d.y)
+	{
+		if (d.map[i][0] != '1' || d.map[i][d.x - 1] != '1')
+			exit(4);
+		i++;
+	}
+}
+
+void	final_check(t_var	d)
+{
+	map_check(&d);
+	check_borders(d);
 }
