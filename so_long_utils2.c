@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 23:14:51 by hhattaki          #+#    #+#             */
-/*   Updated: 2022/12/24 20:46:59 by hhattaki         ###   ########.fr       */
+/*   Updated: 2022/12/25 16:41:02 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	rendering(int fd, t_var	d)
 			i++;
 			h[1] += 30;
 		}
+		free(line);
 		line = get_next_line(fd);
 		h[1] += 30;
 	}

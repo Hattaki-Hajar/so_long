@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 20:17:29 by hhattaki          #+#    #+#             */
-/*   Updated: 2022/12/24 20:42:28 by hhattaki         ###   ########.fr       */
+/*   Updated: 2022/12/25 22:07:46 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	right(t_var	d, int *pos)
 	int	i;
 	int	j;
 
-	player_pos(pos, d);
+	find_pos(pos, d, 'P');
 	j = pos[0];
 	i = pos[1];
 	if (i + 1 < d.x && (d.map[j][i + 1] == '0' || d.map[j][i + 1] == 'C'))
@@ -32,7 +32,7 @@ void	left(t_var	d, int *pos)
 	int	i;
 	int	j;
 
-	player_pos(pos, d);
+	find_pos(pos, d, 'P');
 	j = pos[0];
 	i = pos[1];
 	if (i + 1 < d.x && (d.map[j][i - 1] == '0' || d.map[j][i - 1] == 'C'))
@@ -47,7 +47,7 @@ void	up(t_var	d, int *pos)
 	int	i;
 	int	j;
 
-	player_pos(pos, d);
+	find_pos(pos, d, 'P');
 	j = pos[0];
 	i = pos[1];
 	if (i + 1 < d.x && (d.map[j - 1][i] == '0' || d.map[j - 1][i] == 'C'))
@@ -62,7 +62,7 @@ void	down(t_var	d, int *pos)
 	int	i;
 	int	j;
 
-	player_pos(pos, d);
+	find_pos(pos, d, 'P');
 	j = pos[0];
 	i = pos[1];
 	if (i + 1 < d.x && (d.map[j + 1][i] == '0' || d.map[j + 1][i] == 'C'))

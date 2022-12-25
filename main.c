@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 22:18:04 by hhattaki          #+#    #+#             */
-/*   Updated: 2022/12/24 21:04:13 by hhattaki         ###   ########.fr       */
+/*   Updated: 2022/12/25 19:52:50 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,29 +16,20 @@
 int	main(int ac, char	**av)
 {
 	t_var	d;
-	// int		h[2];
-	// // int		y[2];
-	// void	*image;
-	// void	*image2;
-	char	*line;
 	int		fd;
 
-	(void)ac;
+	if (ac != 2)
+		exit(1);
 	fd = open(av[1], O_RDONLY);
 	if (fd == -1)
-		exit(1);
+		exit(6);
+	d.x = get_x(av[1]);
+	d.y = get_y(av[1]);
 	d.map = get_map(fd, d.y, d.x);
-	final_check(d);
-	d.x = gnl(fd) - 1;
-	line = get_next_line(fd);
-	d.y = 0;
-	while (line)
-	{
-		line = get_next_line(fd);
-		d.y++;
-	}
+	map_check(&d);
+	check_borders(d);
+	check_path(d);
 	close(fd);
-	
 	// d.mlxp = mlx_init();
 	// // open_pics(&d);
 	// // rendering(d);

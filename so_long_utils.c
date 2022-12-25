@@ -6,46 +6,67 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 21:41:30 by hhattaki          #+#    #+#             */
-/*   Updated: 2022/12/24 21:15:17 by hhattaki         ###   ########.fr       */
+/*   Updated: 2022/12/25 20:59:37 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"so_long.h"
 
-int	gnl(int fd)
+int	get_x(char	*file)
 {
+	int		x;
+	int		fd;
 	char	*line;
-	int		i;
-	size_t		len;
 
+	fd = open(file, O_RDONLY);
 	line = get_next_line(fd);
-	len = ft_strlen(line);
-	i = 0;
-	while (line[i])
-	{
-		if (ft_strlen(line) != len)
-		{
-			ft_putendl_fd("Invalid map", 2);
-			exit(1);
-		}
-			
-		i++;
-	}
-	return (i);
+	x = ft_strlen(line) - 1;
+	close(fd);
+	return (x);
 }
 
-char	**get_map(int fd, int	y, int	x)
+int	get_y(char	*file)
+{
+	char	*line;
+	int		fd;
+	int		j;
+
+	fd = open(file, O_RDONLY);
+	line = get_next_line(fd);
+	j = 0;
+	while (line)
+	{
+		free(line);
+		line = get_next_line(fd);
+		j++;
+	}
+	close (fd);
+	return (j);
+}
+
+char	**get_map(int fd, int y, int x)
 {
 	char	**map;
 	int		j;
 	char	*line;
+	int		len;
 
 	map = malloc(y * sizeof(char *));
 	j = 0;
 	line = get_next_line(fd);
-	while (line)
+	while (line && j < y)
 	{
+		if (line[x] == '\n')
+			len = ft_strlen(line) - 1;
+		else
+			len = ft_strlen(line);
+		if (len != x)
+		{
+			ft_putendl_fd("Invalid map", 2);
+			exit (1);
+		}
 		map[j] = ft_substr(line, 0, x);
+		free(line);
 		line = get_next_line(fd);
 		j++;
 	}
@@ -64,30 +85,26 @@ void	map_check(t_var	*d)
 	p = 0;
 	e = 0;
 	j = 0;
-	
-	dprintf(2,"%s\n",d->map[0]);
 	while (j < d->y)
 	{
 		i = 0;
 		while (i < d->x)
 		{
-			dprintf(2, ":%c:\n",d->map[i][j]);
-			if (d->map[i][j] == 'P')
+			if (d->map[j][i] == 'P')
 				p++;
-			else if (d->map[i][j] == 'E')
+			else if (d->map[j][i] == 'E')
 				e++;
-			else if (d->map[i][j] == 'C')
+			else if (d->map[j][i] == 'C')
 				d->c++;
-			else if (d->map[i][j] != '1' && d->map[i][j] != '0')
+			else if (d->map[j][i] != '1' && d->map[j][i] != '0')
 				exit(5);
 			i++;
 		}
 		j++;
 	}
 	if (d->c == 0 || p != 1 || e != 1)
-	{
-		dprintf(2, "C= %d P= %d E= %d\n", d->c,p,e);	
-		exit(23);
+	{	
+		exit(6);
 	}
 }
 
@@ -96,14 +113,14 @@ void	check_borders(t_var	d)
 	int	i;
 
 	i = 0;
-	while (d.map[1])
+	while (d.map[0] && i < d.x)
 	{
-		if (d.map[1][i] != '1')
+		if (d.map[0][i] != '1')
 			exit(3);
 		i++;
 	}
 	i = 0;
-	while (d.map[d.y - 1])
+	while (d.map[d.y - 1] && i < d.x)
 	{
 		if (d.map[d.y - 1][i] != '1')
 			exit(3);
@@ -116,10 +133,4 @@ void	check_borders(t_var	d)
 			exit(4);
 		i++;
 	}
-}
-
-void	final_check(t_var	d)
-{
-	map_check(&d);
-	check_borders(d);
 }
