@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 21:41:30 by hhattaki          #+#    #+#             */
-/*   Updated: 2022/12/25 20:59:37 by hhattaki         ###   ########.fr       */
+/*   Updated: 2022/12/26 22:56:52 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	**get_map(int fd, int y, int x)
 	char	*line;
 	int		len;
 
-	map = malloc(y * sizeof(char *));
+	map = ft_calloc(y, sizeof(char *));
 	j = 0;
 	line = get_next_line(fd);
 	while (line && j < y)
@@ -61,10 +61,7 @@ char	**get_map(int fd, int y, int x)
 		else
 			len = ft_strlen(line);
 		if (len != x)
-		{
-			ft_putendl_fd("Invalid map", 2);
-			exit (1);
-		}
+			ft_error("Invalid map: map is not rectangular");
 		map[j] = ft_substr(line, 0, x);
 		free(line);
 		line = get_next_line(fd);
@@ -97,15 +94,13 @@ void	map_check(t_var	*d)
 			else if (d->map[j][i] == 'C')
 				d->c++;
 			else if (d->map[j][i] != '1' && d->map[j][i] != '0')
-				exit(5);
+				ft_error("Invalid map: undefined element");
 			i++;
 		}
 		j++;
 	}
 	if (d->c == 0 || p != 1 || e != 1)
-	{	
-		exit(6);
-	}
+		ft_error("Invalid map: Invalid number of elements");
 }
 
 void	check_borders(t_var	d)
@@ -116,21 +111,21 @@ void	check_borders(t_var	d)
 	while (d.map[0] && i < d.x)
 	{
 		if (d.map[0][i] != '1')
-			exit(3);
+			ft_error("Invalid map: Invalid borders");
 		i++;
 	}
 	i = 0;
 	while (d.map[d.y - 1] && i < d.x)
 	{
 		if (d.map[d.y - 1][i] != '1')
-			exit(3);
+			ft_error("Invalid map: Invalid borders");
 		i++;
 	}
 	i = 0;
 	while (i < d.y)
 	{
 		if (d.map[i][0] != '1' || d.map[i][d.x - 1] != '1')
-			exit(4);
+			ft_error("Invalid map: Invalid borders");
 		i++;
 	}
 }

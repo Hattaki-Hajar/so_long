@@ -6,48 +6,62 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 23:14:51 by hhattaki          #+#    #+#             */
-/*   Updated: 2022/12/25 16:41:02 by hhattaki         ###   ########.fr       */
+/*   Updated: 2022/12/27 00:16:04 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"so_long.h"
 
+void	wall(t_var *d, int j, int i)
+{
+	int h[2];
+	
+	d->w = mlx_xpm_file_to_image(d->mlxp, "./wall2.xpm", &h[0], &h[1]);
+	mlx_put_image_to_window(d->mlxp, d->window, d->w, i * 50, j * 50);
+}
+
+void	grass(t_var *d, int j, int i)
+{
+	int h[2];
+	
+	d->g = mlx_xpm_file_to_image(d->mlxp, "./grass.xpm", &h[0], &h[1]);
+	mlx_put_image_to_window(d->mlxp, d->window, d->g, i * 50, j *50);
+}
+
+void	coll(t_var *d, int j, int i)
+{
+	int h[2];
+	
+	grass(d, j, i);
+	d->ct = mlx_xpm_file_to_image(d->mlxp, "./coll.xpm", &h[0], &h[1]);
+	mlx_put_image_to_window(d->mlxp, d->window, d->ct, i * 50, j *50);
+}
+
+void	player(t_var *d, int j, int i)
+{
+	int h[2];
+	
+	grass(d, j, i);
+	d->p = mlx_xpm_file_to_image(d->mlxp, "./player.xpm", &h[0], &h[1]);
+	mlx_put_image_to_window(d->mlxp, d->window, d->p, i * 50, j *50);
+}
+
+void	portal(t_var *d, int j, int i)
+{
+	int h[2];
+	
+	grass(d, j, i);
+	d->e = mlx_xpm_file_to_image(d->mlxp, "./portaal.xpm", &h[0], &h[1]);
+	mlx_put_image_to_window(d->mlxp, d->window, d->e, i * 50, j *50);
+}
+
 void	open_pics(t_var *d)
 {
 	int		h[2];
 
-	d->w = mlx_xpm_file_to_image(d->mlxp, "./utils/wall.xpm", &h[0], &h[1]);
-	d->e = mlx_xpm_file_to_image(d->mlxp, "./utils/exit.xpm", &h[0], &h[1]);
-	d->p = mlx_xpm_file_to_image(d->mlxp, "./utils/player.xpm", &h[0], &h[1]);
-	d->ct = mlx_xpm_file_to_image(d->mlxp, "./utils/coll.xpm", &h[0], &h[1]);
-}
-
-void	rendering(int fd, t_var	d)
-{
-	int		i;
-	char	*line;
-	int		h[2];
-
-	i = 0;
-	line = get_next_line(fd);
-	while (line)
-	{
-		h[0] = 0;
-		while (line[i])
-		{
-			if (line[i] == '1')
-				mlx_put_image_to_window(d.mlxp, d.window, d.w, h[0], h[1]);
-			if (line[i] == 'C')
-				mlx_put_image_to_window(d.mlxp, d.window, d.ct, h[0], h[1]);
-			if (line[i] == 'E')
-				mlx_put_image_to_window(d.mlxp, d.window, d.e, h[0], h[1]);
-			if (line[i] == 'P')
-				mlx_put_image_to_window(d.mlxp, d.window, d.p, h[0], h[1]);
-			i++;
-			h[1] += 30;
-		}
-		free(line);
-		line = get_next_line(fd);
-		h[1] += 30;
-	}
+	d->e = mlx_xpm_file_to_image(d->mlxp, "./portaal.xpm", &h[0], &h[1]);
+	d->p = mlx_xpm_file_to_image(d->mlxp, "./player.xpm", &h[0], &h[1]);
+	d->ct = mlx_xpm_file_to_image(d->mlxp, "./coll.xpm", &h[0], &h[1]);
+	d->g = mlx_xpm_file_to_image(d->mlxp, "./grass.xpm", &h[0], &h[1]);
+	d->w = mlx_xpm_file_to_image(d->mlxp, "./wall1.xpm", &h[0], &h[1]);
 }

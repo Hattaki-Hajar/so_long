@@ -2,7 +2,7 @@ SOURCES = $(wildcard *.c)
 		
 CC	=	cc
 
-CFLAGS	=	-Wall -Wextra -Werror
+CFLAGS	=	-Wall -Wextra -Werror -fsanitize=address
 
 NAME	=	so_long
 
