@@ -2,7 +2,7 @@ SOURCES = $(wildcard *.c)
 		
 CC	=	cc
 
-CFLAGS	=	-Wall -Wextra -Werror -fsanitize=address
+CFLAGS	=	-Wall -Wextra -Werror
 
 NAME	=	so_long
 
@@ -14,7 +14,7 @@ all	:	$(NAME)
 
 $(NAME)	:	$(SOURCES)
 		make -C libft
-		$(CC) $(CFLAGS) $(LFLAGS) $(SOURCES) $(LIBFT) -o $(NAME)
+		$(CC) $(CFLAGS) $(LFLAGS) $(SOURCES) $(LIBFT)  -o $(NAME)
 
 clean:
 		make clean -C libft

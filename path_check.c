@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 15:38:57 by hhattaki          #+#    #+#             */
-/*   Updated: 2022/12/26 23:21:31 by hhattaki         ###   ########.fr       */
+/*   Updated: 2022/12/27 22:38:34 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_free(char **temp, int y)
 	int	i;
 
 	i = 0;
-	while (i < y)
+	while (i <= y)
 	{
 		free(temp[i]);
 		i++;
@@ -47,8 +47,6 @@ void	find_pos(int *pos, t_var d)
 		}
 		j++;
 	}
-	// if (i == d.x && j == d.y && !p[0])
-	// 	ft_error("Invalid path", 3);
 }
 
 char	**temp_map(t_var	d)
@@ -104,7 +102,6 @@ void	final_path(t_var	d)
 	checker = (t_path *) ft_calloc(1, sizeof(t_path));
 	checker->e = 0;
 	checker->c_nbr = 0;
-	// dprintf(2, "y = %d x = %d\n", pos);
 	checker = check_path(pos[1], pos[0], temp, checker);
 	ft_free(temp, d.y);
 	if (checker->e == 0)
