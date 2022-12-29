@@ -1,6 +1,8 @@
-SOURCES = $(wildcard *.c)
+SOURCES = $(wildcard ./mandatory/*.c)
+
+BONUS 	= $(wildcard ./bonus/*.c)
 		
-CC	=	cc
+CC		=	cc
 
 CFLAGS	=	-Wall -Wextra -Werror
 
@@ -10,16 +12,16 @@ LIBFT	=	./libft/libft.a
 
 LFLAGS	=	-lmlx -framework OpenGL -framework AppKit
 
-all	:	$(NAME)
+all		:	$(NAME)
 
 $(NAME)	:	$(SOURCES)
 		make -C libft
 		$(CC) $(CFLAGS) $(LFLAGS) $(SOURCES) $(LIBFT)  -o $(NAME)
 
-clean:
+clean	:
 		make clean -C libft
 
 fclean	:	clean
 			rm -rf $(NAME) $(LIBFT)
 
-re	:	fclean all
+re		:	fclean all
