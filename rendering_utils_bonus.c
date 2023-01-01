@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rendering_utils.c                                  :+:      :+:    :+:   */
+/*   rendering_utils_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 23:31:33 by hhattaki          #+#    #+#             */
-/*   Updated: 2022/12/28 23:31:55 by hhattaki         ###   ########.fr       */
+/*   Updated: 2022/12/31 22:56:09 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,18 @@ void	grass(t_var *d, int j, int i)
 void	coll(t_var *d, int j, int i)
 {
 	grass(d, j, i);
-	mlx_put_image_to_window(d->mlxp, d->window, d->ct, i * 50, j * 50);
+	printf("%d\n", d->i);
+	if (d->tmr > 60)
+	{
+		d->i = d->i + 1;
+		d->tmr = 0;
+	}
+	if(d->i > 1)
+	{
+		d->i = 0;
+	}
+	mlx_put_image_to_window(d->mlxp, d->window, d->ct[d->i], i * 50, j * 50);
+	d->tmr++;
 }
 
 void	player(t_var *d, int j, int i)
@@ -38,15 +49,4 @@ void	portal(t_var *d, int j, int i)
 {
 	grass(d, j, i);
 	mlx_put_image_to_window(d->mlxp, d->window, d->e, i * 50, j * 50);
-}
-
-void	open_pics(t_var	*d)
-{
-	int	h[2];
-
-	d->g = mlx_xpm_file_to_image(d->mlxp, "./utils/coolwall.xpm", &h[0], &h[1]);
-	d->e = mlx_xpm_file_to_image(d->mlxp, "./utils/portaal.xpm", &h[0], &h[1]);
-	d->p = mlx_xpm_file_to_image(d->mlxp, "./utils/danganronpa.xpm", &h[0], &h[1]);
-	d->ct = mlx_xpm_file_to_image(d->mlxp, "./utils/coll.xpm", &h[0], &h[1]);
-	d->w = mlx_xpm_file_to_image(d->mlxp, "./utils/wall2.xpm", &h[0], &h[1]);
 }

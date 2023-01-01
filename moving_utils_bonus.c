@@ -6,17 +6,11 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 23:30:43 by hhattaki          #+#    #+#             */
-/*   Updated: 2022/12/28 23:31:05 by hhattaki         ###   ########.fr       */
+/*   Updated: 2022/12/31 22:34:36 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"so_long_bonus.h"
-
-void	print_move(int n)
-{
-	ft_putnbr_fd(n, 1);
-	ft_putchar_fd('\n', 1);
-}
 
 void	right(t_var	*d)
 {
@@ -31,7 +25,6 @@ void	right(t_var	*d)
 	{
 		d->map[j][i] = '0';
 		d->move++;
-		// print_move(d->move);
 		exit (0);
 	}
 	if (i + 1 < d->x && (d->map[j][i + 1] == '0' || d->map[j][i + 1] == 'C'))
@@ -41,7 +34,6 @@ void	right(t_var	*d)
 		d->map[j][i + 1] = 'P';
 		d->map[j][i] = '0';
 		d->move++;
-		// print_move(d->move);
 	}	
 }
 
@@ -58,7 +50,6 @@ void	left(t_var	*d)
 	{
 		d->map[j][i] = '0';
 		d->move++;
-		// print_move(d->move);
 		exit (0);
 	}
 	if (i - 1 > 0 && (d->map[j][i - 1] == '0' || d->map[j][i - 1] == 'C'))
@@ -68,7 +59,6 @@ void	left(t_var	*d)
 		d->map[j][i - 1] = 'P';
 		d->map[j][i] = '0';
 		d->move++;
-		// print_move(d->move);
 	}
 }
 
@@ -85,7 +75,6 @@ void	up(t_var	*d)
 	{
 		d->map[j][i] = '0';
 		d->move++;
-		// print_move(d->move);
 		exit (0);
 	}
 	if (j - 1 > 0 && (d->map[j - 1][i] == '0' || d->map[j - 1][i] == 'C'))
@@ -95,7 +84,6 @@ void	up(t_var	*d)
 		d->map[j - 1][i] = 'P';
 		d->map[j][i] = '0';
 		d->move++;
-		// print_move(d->move);
 	}
 }
 
@@ -112,7 +100,6 @@ void	down(t_var	*d)
 	{
 		d->map[j][i] = '0';
 		d->move++;
-		// print_move(d->move);
 		exit (0);
 	}
 	if (j + 1 < d->y && (d->map[j + 1][i] == '0' || d->map[j + 1][i] == 'C'))
@@ -122,6 +109,5 @@ void	down(t_var	*d)
 		d->map[j + 1][i] = 'P';
 		d->map[j][i] = '0';
 		d->move++;
-		// print_move(d->move);
 	}
 }

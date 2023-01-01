@@ -6,11 +6,25 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 22:18:04 by hhattaki          #+#    #+#             */
-/*   Updated: 2022/12/29 23:38:01 by hhattaki         ###   ########.fr       */
+/*   Updated: 2022/12/31 21:19:19 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"so_long.h"
+
+int	check_arg(char	*arg)
+{
+	char	*temp;
+
+	temp = ft_strrchr(arg, '.');
+	if (!temp)
+		return (0);
+	if (ft_strlen(temp) != 4)
+		return (0);
+	if (ft_strncmp(".ber", temp, 4))
+		return (0);
+	return (1);
+}
 
 int	ft_key(int key, t_var *d)
 {
@@ -68,12 +82,13 @@ int	main(int ac, char	**av)
 	int		fd;
 
 	fd = open(av[1], O_RDONLY);
-	if (ac != 2 || fd == -1)
+	if (ac != 2 || fd == -1 || !check_arg(av[1]))
 		ft_error("Error\nInvalid arguments");
 	d.x = get_x(av[1]);
 	d.y = get_y(av[1]);
 	d.map = get_map(fd, d.y, d.x);
-	map_check(&d);
+	map_check1(&d);
+	map_check2(&d);
 	check_borders(d);
 	final_path(d);
 	close(fd);

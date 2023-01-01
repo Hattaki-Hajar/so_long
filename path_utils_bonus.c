@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 23:29:43 by hhattaki          #+#    #+#             */
-/*   Updated: 2022/12/28 23:30:01 by hhattaki         ###   ########.fr       */
+/*   Updated: 2022/12/31 23:04:38 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,14 @@ void	final_path(t_var	d)
 	checker = check_path(pos[1], pos[0], temp, checker);
 	ft_free(temp, d.y);
 	if (checker->e == 0)
+	{
+		free(checker);	
 		ft_error("Error\nInvalid path: Couldn't reach exit");
+	}
 	if (checker->c_nbr != d.c)
+	{
+		free(checker);	
 		ft_error("Error\nInvalid path: Couldn't reach all collectibles");
+	}
+	free(checker);
 }

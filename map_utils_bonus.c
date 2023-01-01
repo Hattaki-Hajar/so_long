@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 23:27:37 by hhattaki          #+#    #+#             */
-/*   Updated: 2022/12/28 23:28:21 by hhattaki         ###   ########.fr       */
+/*   Updated: 2022/12/31 23:02:28 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	get_x(char	*file)
 	fd = open(file, O_RDONLY);
 	line = get_next_line(fd);
 	x = ft_strlen(line) - 1;
+	free(line);
 	close(fd);
 	return (x);
 }
@@ -70,38 +71,30 @@ char	**get_map(int fd, int y, int x)
 	return (map);
 }
 
-void	map_check(t_var	*d)
+void	map_check1(t_var	*d)
 {
 	int	i;
 	int	j;
-	int	p;
-	int	e;
 
 	i = 0;
 	d->c = 0;
-	p = 0;
-	e = 0;
-	j = 0;
-	d->t = 0;
 	d->move = 0;
+	j = 0;
 	while (j < d->y)
 	{
 		i = 0;
 		while (i < d->x)
 		{
-			if (d->map[j][i] == 'P')
-				p++;
-			else if (d->map[j][i] == 'E')
-				e++;
-			else if (d->map[j][i] == 'C')
+			if (d->map[j][i] == 'C')
 				d->c++;
-			else if (d->map[j][i] != '1' && d->map[j][i] != '0')
+			else if (d->map[j][i] != '1' && d->map[j][i] != '0'
+			&& d->map[j][i] != 'P' && d->map[j][i] != 'E')
 				ft_error("Error\nInvalid map: Undefined element");
 			i++;
 		}
 		j++;
 	}
-	if (d->c == 0 || p != 1 || e != 1)
+	if (d->c == 0)
 		ft_error("Erron\nInvalid map: Invalid number of elements");
 }
 

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   path_check.c                                       :+:      :+:    :+:   */
+/*   path_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 15:38:57 by hhattaki          #+#    #+#             */
-/*   Updated: 2022/12/28 21:28:01 by hhattaki         ###   ########.fr       */
+/*   Updated: 2022/12/31 20:35:41 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	**temp_map(t_var	d)
 	char	**temp;
 	int		i;
 
-	temp = ft_calloc(d.y + 2, sizeof(char *));
+	temp = ft_calloc(d.y + 1, sizeof(char *));
 	i = 0;
 	while (i < d.y)
 	{
@@ -105,7 +105,14 @@ void	final_path(t_var	d)
 	checker = check_path(pos[1], pos[0], temp, checker);
 	ft_free(temp, d.y);
 	if (checker->e == 0)
+	{
+		free(checker);
 		ft_error("Error\nInvalid path: Couldn't reach exit");
+	}
 	if (checker->c_nbr != d.c)
+	{
+		free(checker);
 		ft_error("Error\nInvalid path: Couldn't reach all collectibles");
+	}
+	free(checker);
 }
