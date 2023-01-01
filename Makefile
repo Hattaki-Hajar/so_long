@@ -4,7 +4,7 @@ SRCBONUS 	= $(wildcard ./bonus/*.c)
 		
 CC		=	cc
 
-CFLAGS	=	-Wall -Wextra -Werror
+CFLAGS	=	-Wall -Wextra -Werror -fsanitize=address
 
 NAME	=	so_long
 
@@ -33,6 +33,6 @@ clean:
 		make clean -C libft
 
 fclean:	clean
-			rm -rf $(NAME) $(LIBFT)
+			rm -rf $(NAME) $(LIBFT) $(BNAME)
 
 re:	fclean all

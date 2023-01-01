@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 23:25:09 by hhattaki          #+#    #+#             */
-/*   Updated: 2022/12/31 22:52:19 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/01/01 21:23:17 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef struct s_var
 	void	*e;
 	void	*p;
 	void	*g;
-	void	*ct[3];
+	void	*ct[2];
 	void	*w;
 	int		x;
 	int		y;
@@ -52,7 +52,6 @@ void	map_check2(t_var *d);
 /*	path	*/
 void	final_path(t_var	d);
 /*	rendering	*/
-void	open_pics(t_var	*d);
 void	coll(t_var *d, int j, int i);
 void	wall(t_var *d, int j, int i);
 void	grass(t_var *d, int j, int i);

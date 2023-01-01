@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 16:28:44 by hhattaki          #+#    #+#             */
-/*   Updated: 2022/12/31 22:28:27 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/01/01 20:05:20 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ void	open_pics(t_var	*d)
 {
 	int	h[2];
 
-	d->g = mlx_xpm_file_to_image(d->mlxp, "./utils/wall2.xpm", &h[0], &h[1]);
+	d->g = mlx_xpm_file_to_image(d->mlxp, "./utils/grass0.xpm", &h[0], &h[1]);
 	d->e = mlx_xpm_file_to_image(d->mlxp, "./utils/portaal.xpm", &h[0], &h[1]);
-	d->p = mlx_xpm_file_to_image(d->mlxp, "./utils/dan.xpm", &h[0], &h[1]);
+	d->p = mlx_xpm_file_to_image(d->mlxp, "./utils/player.xpm", &h[0], &h[1]);
 	d->ct = mlx_xpm_file_to_image(d->mlxp, "./utils/c0.xpm", &h[0], &h[1]);
-	d->w = mlx_xpm_file_to_image(d->mlxp, "./utils/wall1.xpm", &h[0], &h[1]);
+	d->w = mlx_xpm_file_to_image(d->mlxp, "./utils/rocks2.xpm", &h[0], &h[1]);
 }
 
 void	map_check2(t_var *d)

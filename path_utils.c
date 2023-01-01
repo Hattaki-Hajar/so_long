@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 15:38:57 by hhattaki          #+#    #+#             */
-/*   Updated: 2022/12/31 20:35:41 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/01/01 15:47:54 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,13 @@ t_path	*check_path(int x, int y, char **map, t_path *checker)
 		return (checker);
 	}
 	map[y][x] = 'N';
-	if (map[y + 1][x] != 1)
+	if (map[y + 1][x] != '1')
 		check_path(x, y + 1, map, checker);
-	if (map[y - 1][x] != 1)
+	if (map[y - 1][x] != '1')
 		check_path(x, y - 1, map, checker);
-	if (map[y][x + 1] != 1)
+	if (map[y][x + 1] != '1')
 		check_path(x + 1, y, map, checker);
-	if (map[y][x - 1] != 1)
+	if (map[y][x - 1] != '1')
 		check_path(x - 1, y, map, checker);
 	return (checker);
 }

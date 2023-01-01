@@ -5,26 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/18 22:18:04 by hhattaki          #+#    #+#             */
-/*   Updated: 2022/12/31 21:19:19 by hhattaki         ###   ########.fr       */
+/*   Created: 2022/12/28 23:26:17 by hhattaki          #+#    #+#             */
+/*   Updated: 2023/01/01 21:23:26 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"so_long.h"
-
-int	check_arg(char	*arg)
-{
-	char	*temp;
-
-	temp = ft_strrchr(arg, '.');
-	if (!temp)
-		return (0);
-	if (ft_strlen(temp) != 4)
-		return (0);
-	if (ft_strncmp(".ber", temp, 4))
-		return (0);
-	return (1);
-}
+#include"so_long_bonus.h"
 
 int	ft_key(int key, t_var *d)
 {
@@ -41,6 +27,13 @@ int	ft_key(int key, t_var *d)
 	return (d->x);
 }
 
+int	destroy(t_var	*d)
+{
+	mlx_destroy_window(d->mlxp, d->window);
+	exit(0);
+	return (0);
+}
+
 int	rendering(t_var	*d)
 {
 	int		i;
@@ -52,6 +45,7 @@ int	rendering(t_var	*d)
 		i = 0;
 		while (d->map[j][i])
 		{
+			print_move(d);
 			if (d->map[j][i] == '1')
 				wall(d, j, i);
 			if (d->map[j][i] == 'C')
@@ -69,13 +63,6 @@ int	rendering(t_var	*d)
 	return (0);
 }
 
-int	destroy(t_var	*d)
-{
-	mlx_destroy_window(d->mlxp, d->window);
-	exit(0);
-	return (0);
-}
-
 int	main(int ac, char	**av)
 {
 	t_var	d;
@@ -86,6 +73,8 @@ int	main(int ac, char	**av)
 		ft_error("Error\nInvalid arguments");
 	d.x = get_x(av[1]);
 	d.y = get_y(av[1]);
+	d.i = 0;
+	d.tmr = 0;
 	d.map = get_map(fd, d.y, d.x);
 	map_check1(&d);
 	map_check2(&d);
@@ -93,7 +82,6 @@ int	main(int ac, char	**av)
 	final_path(d);
 	close(fd);
 	d.mlxp = mlx_init();
-	open_pics(&d);
 	d.window = mlx_new_window(d.mlxp, (d.x * 50), (d.y * 50), "so_long");
 	mlx_hook(d.window, 17, 0, destroy, &d);
 	mlx_loop_hook(d.mlxp, &rendering, &d);

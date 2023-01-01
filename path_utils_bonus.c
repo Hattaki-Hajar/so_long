@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 23:29:43 by hhattaki          #+#    #+#             */
-/*   Updated: 2022/12/31 23:04:38 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/01/01 21:16:33 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,13 @@ t_path	*check_path(int x, int y, char **map, t_path *checker)
 		return (checker);
 	}
 	map[y][x] = 'N';
-	if (map[y + 1][x] != 1)
+	if (map[y + 1][x] != '1')
 		check_path(x, y + 1, map, checker);
-	if (map[y - 1][x] != 1)
+	if (map[y - 1][x] != '1')
 		check_path(x, y - 1, map, checker);
-	if (map[y][x + 1] != 1)
+	if (map[y][x + 1] != '1')
 		check_path(x + 1, y, map, checker);
-	if (map[y][x - 1] != 1)
+	if (map[y][x - 1] != '1')
 		check_path(x - 1, y, map, checker);
 	return (checker);
 }
@@ -106,12 +106,12 @@ void	final_path(t_var	d)
 	ft_free(temp, d.y);
 	if (checker->e == 0)
 	{
-		free(checker);	
+		free(checker);
 		ft_error("Error\nInvalid path: Couldn't reach exit");
 	}
 	if (checker->c_nbr != d.c)
 	{
-		free(checker);	
+		free(checker);
 		ft_error("Error\nInvalid path: Couldn't reach all collectibles");
 	}
 	free(checker);
